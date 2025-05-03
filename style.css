@@ -159,6 +159,38 @@ body.dark-mode {
   cursor: pointer;
   transition: transform 0.2s;
 }
+.rps-choices {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.rps-choices img {
+  width: 80px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rps-choices img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+#result {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+#result.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .rps-buttons button:hover {
   transform: scale(1.1);

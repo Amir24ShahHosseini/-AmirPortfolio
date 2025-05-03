@@ -11,18 +11,26 @@ function play(playerChoice) {
   const computerChoice = choices[Math.floor(Math.random() * 3)];
 
   let result = "";
+
   if (playerChoice === computerChoice) {
-    result = `It's a tie! We both picked ${playerChoice}.`;
+    result = `🤝 It's a tie! We both picked ${playerChoice}.`;
   } else if (
     (playerChoice === "rock" && computerChoice === "scissors") ||
     (playerChoice === "scissors" && computerChoice === "paper") ||
     (playerChoice === "paper" && computerChoice === "rock")
   ) {
-    result = `You win! ${playerChoice} beats ${computerChoice}.`;
+    result = `✅ You win! ${playerChoice} beats ${computerChoice}.`;
   } else {
-    result = `You lose! ${computerChoice} beats ${playerChoice}.`;
+    result = `❌ You lose! ${computerChoice} beats ${playerChoice}.`;
   }
 
-  document.getElementById("result").innerText = result;
+  const resultElem = document.getElementById("result");
+  resultElem.innerText = result;
+  resultElem.classList.remove("visible");
+
+  // Trigger reflow (to restart animation)
+  void resultElem.offsetWidth;
+  resultElem.classList.add("visible");
 }
+
 
