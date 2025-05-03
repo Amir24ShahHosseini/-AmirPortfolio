@@ -57,18 +57,32 @@
         <a href="https://linkedin.com/in/amir-shahhosseini-1575aa275" target="_blank">LinkedIn</a>
       </p>
     </section>
+
+    <section class="balloon-game">
+      <h2>🎈 Since you're here... wanna play a game?</h2>
+      <p>Click the balloons to pop them and score points! ⏱️ You have 30 seconds.</p>
+
+      <div id="balloon-container"></div>
+
+      <div class="score-board">
+        🎯 Score: <span id="score">0</span>
+      </div>
+
+      <div id="game-over" class="hidden">
+        ⏰ Time’s up! Final Score: <span id="final-score">0</span>
+        <br><br>
+        <label for="player-name">Enter your name:</label>
+        <input type="text" id="player-name" placeholder="Your name" />
+        <button onclick="saveScore()">Submit Score</button>
+        <button onclick="restartGame()">🔄 Restart</button>
+      </div>
+
+      <div id="scoreboard" class="hidden">
+        <h3>🏆 Scoreboard</h3>
+        <ul id="score-list"></ul>
+      </div>
+    </section>
   </main>
-  <section class="game">
-    <h2>Since you're here... why not play a quick game?</h2>
-    <div class="rps-choices">
-      <img src="https://twemoji.maxcdn.com/v/latest/72x72/1faa8.png" alt="Rock" onclick="play('rock')" />
-      <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f4c4.png" alt="Paper" onclick="play('paper')" />
-      <img src="https://twemoji.maxcdn.com/v/latest/72x72/2702.png" alt="Scissors" onclick="play('scissors')" />
-    </div>
-    <p id="result"></p>
-  </section>
-  
-  
 
   <footer>
     <p>© 2025 Amir Shah | Built with bold vision & clean design</p>
