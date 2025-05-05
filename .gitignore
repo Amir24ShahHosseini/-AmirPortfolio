@@ -1,0 +1,19 @@
+# Ignore Firebase config file
+config.js
+
+# macOS & Windows system files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# Env files
+.env
+.env.local
