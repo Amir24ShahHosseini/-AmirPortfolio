@@ -83,7 +83,7 @@ function saveScore() {
   document.getElementById("player-name").value = "";
 }
 
-// 🏆 Load top scores from Firebase
+// 🏆 Load scores from Firebase
 function loadScores() {
   const list = document.getElementById("score-list");
   const scoreboard = document.getElementById("scoreboard");
@@ -91,6 +91,7 @@ function loadScores() {
 
   const db = window.firebaseDB;
   const { ref, onValue } = window.firebaseModules;
+
   const scoresRef = ref(db, "scores");
 
   onValue(scoresRef, (snapshot) => {
@@ -99,7 +100,7 @@ function loadScores() {
 
     if (allScores) {
       const scoresArray = Object.values(allScores);
-      scoresArray.sort((a, b) => b.score - a.score);
+      scoresArray.sort((a, b) => b.score - a.score); // highest first
       const topScores = scoresArray.slice(0, 5);
 
       topScores.forEach(({ name, score }) => {
@@ -113,7 +114,7 @@ function loadScores() {
   });
 }
 
-// 🚀 Start game and load scores on page load
+// 🚀 Init on Load
 window.addEventListener("load", () => {
   startGame();
   loadScores();
