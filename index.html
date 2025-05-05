@@ -94,14 +94,15 @@
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
     const firebaseConfig = {
-      apiKey: "***REMOVED***",
-      authDomain: "balloongmaescores.firebaseapp.com",
-      databaseURL: "https://balloongmaescores-default-rtdb.firebaseio.com",
-      projectId: "balloongmaescores",
-      storageBucket: "balloongmaescores.appspot.com", <!-- ✅ Fixed -->
-      messagingSenderId: "898063026628",
-      appId: "1:898063026628:web:906385f1bbc918b457fc91"
-    };
+  apiKey: "AIzaSyDl-BWTRZOfTYDskyQMvXkvPFlXK4sji0k",
+  authDomain: "balloongmaescores.firebaseapp.com",
+  databaseURL: "https://balloongmaescores-default-rtdb.firebaseio.com",
+  projectId: "balloongmaescores",
+  storageBucket: "balloongmaescores.firebasestorage.app",
+  messagingSenderId: "898063026628",
+  appId: "1:898063026628:web:906385f1bbc918b457fc91"
+};
+
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
