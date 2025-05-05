@@ -88,6 +88,30 @@
     <p>© 2025 Amir Shah | Built with bold vision & clean design</p>
   </footer>
 
+  <!-- ✅ Firebase Setup -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "***REMOVED***",
+      authDomain: "balloongmaescores.firebaseapp.com",
+      databaseURL: "https://balloongmaescores-default-rtdb.firebaseio.com",
+      projectId: "balloongmaescores",
+      storageBucket: "balloongmaescores.appspot.com", <!-- ✅ Fixed -->
+      messagingSenderId: "898063026628",
+      appId: "1:898063026628:web:906385f1bbc918b457fc91"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Make Firebase modules available to script.js
+    window.firebaseDB = db;
+    window.firebaseModules = { ref, push, onValue };
+  </script>
+
+  <!-- ✅ Your JavaScript Logic -->
   <script src="script.js"></script>
 </body>
 </html>

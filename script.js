@@ -65,35 +65,55 @@ function restartGame() {
   startGame();
 }
 
+// 🧠 Save score to Firebase
 function saveScore() {
   const name = document.getElementById("player-name").value.trim() || "Anonymous";
-  const savedScores = JSON.parse(localStorage.getItem("balloonScores")) || [];
+  const db = window.firebaseDB;
 
-  savedScores.push({ name, score });
-  savedScores.sort((a, b) => b.score - a.score); // sort highest to lowest
-  localStorage.setItem("balloonScores", JSON.stringify(savedScores.slice(0, 5))); // top 5
+  const scoreData = {
+    name,
+    score,
+    timestamp: Date.now()
+  };
 
-  loadScores(); // show updated list
+  const { ref, push } = window.firebaseModules;
+  const scoresRef = ref(db, "scores");
+  push(scoresRef, scoreData);
+
+  document.getElementById("player-name").value = "";
 }
 
+// 🏆 Load top scores from Firebase
 function loadScores() {
   const list = document.getElementById("score-list");
   const scoreboard = document.getElementById("scoreboard");
   list.innerHTML = "";
 
-  const savedScores = JSON.parse(localStorage.getItem("balloonScores")) || [];
-  savedScores.forEach(({ name, score }) => {
-    const li = document.createElement("li");
-    li.textContent = `${name}: ${score} points`;
-    list.appendChild(li);
-  });
+  const db = window.firebaseDB;
+  const { ref, onValue } = window.firebaseModules;
+  const scoresRef = ref(db, "scores");
 
-  if (savedScores.length > 0) {
-    scoreboard.classList.remove("hidden");
-  }
+  onValue(scoresRef, (snapshot) => {
+    const allScores = snapshot.val();
+    list.innerHTML = "";
+
+    if (allScores) {
+      const scoresArray = Object.values(allScores);
+      scoresArray.sort((a, b) => b.score - a.score);
+      const topScores = scoresArray.slice(0, 5);
+
+      topScores.forEach(({ name, score }) => {
+        const li = document.createElement("li");
+        li.textContent = `${name}: ${score} points`;
+        list.appendChild(li);
+      });
+
+      scoreboard.classList.remove("hidden");
+    }
+  });
 }
 
-// 🚀 Start game + load scores on page load
+// 🚀 Start game and load scores on page load
 window.addEventListener("load", () => {
   startGame();
   loadScores();
