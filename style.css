@@ -169,8 +169,15 @@ body.dark-mode {
   position: absolute;
   bottom: 0;
   cursor: pointer;
-  animation: float-up 4s linear forwards;
+  animation: float-up 2.8s linear forwards;
 }
+
+
+.red-balloon {
+  background-color: red !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
 
 @keyframes float-up {
   from { bottom: -80px; }
@@ -190,6 +197,13 @@ body.dark-mode {
   font-weight: bold;
   color: red;
 }
+
+.red-warning {
+  color: red;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
 
 .hidden {
   display: none;

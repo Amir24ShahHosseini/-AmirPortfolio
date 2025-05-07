@@ -13,29 +13,53 @@ let score = 0;
 let hue = 0;
 let gameRunning = true;
 let gameInterval;
+let lastRedBalloon = 0;
 const gameDuration = 30000;
+const redBalloonInterval = 5000;
 
 function createBalloon() {
   if (!gameRunning) return;
 
-  const balloon = document.createElement("div");
-  balloon.classList.add("balloon");
-  hue = (hue + 40) % 360;
-  balloon.style.setProperty("--hue", hue);
-  balloon.style.left = Math.random() * 90 + "%";
+  const balloonCount = Math.random() < 0.25 ? 5 : 1;
 
-  balloon.addEventListener("click", () => {
-    score++;
-    document.getElementById("score").innerText = score;
-    popSound();
-    balloon.remove();
-  });
+  for (let i = 0; i < balloonCount; i++) {
+    const now = Date.now();
+    const isRed = now - lastRedBalloon >= redBalloonInterval;
 
-  document.getElementById("balloon-container").appendChild(balloon);
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
 
-  setTimeout(() => {
-    if (balloon.parentElement) balloon.remove();
-  }, 4000);
+    if (isRed && i === 0) {
+      balloon.classList.add("red-balloon");
+      lastRedBalloon = now;
+    }
+
+    const size = Math.floor(Math.random() * 20) + 40; // 40px–60px
+    balloon.style.width = `${size}px`;
+    balloon.style.height = `${size * 1.4}px`;
+
+    hue = (hue + 40) % 360;
+    balloon.style.setProperty("--hue", hue);
+    balloon.style.left = Math.random() * 90 + "%";
+
+    balloon.addEventListener("click", () => {
+      if (balloon.classList.contains("red-balloon")) {
+        score = Math.max(0, score - 1);
+      } else {
+        score++;
+      }
+
+      document.getElementById("score").innerText = score;
+      popSound();
+      balloon.remove();
+    });
+
+    document.getElementById("balloon-container").appendChild(balloon);
+
+    setTimeout(() => {
+      if (balloon.parentElement) balloon.remove();
+    }, 3000);
+  }
 }
 
 function popSound() {
@@ -46,12 +70,13 @@ function popSound() {
 function startGame() {
   score = 0;
   gameRunning = true;
+  lastRedBalloon = Date.now();
   document.getElementById("score").innerText = score;
   document.getElementById("game-over").classList.add("hidden");
   document.getElementById("player-name").value = "";
   document.getElementById("balloon-container").innerHTML = "";
 
-  gameInterval = setInterval(createBalloon, 600);
+  gameInterval = setInterval(createBalloon, 280); // faster now
 
   setTimeout(() => {
     clearInterval(gameInterval);
@@ -100,7 +125,7 @@ function loadScores() {
 
     if (allScores) {
       const scoresArray = Object.values(allScores);
-      scoresArray.sort((a, b) => b.score - a.score); // highest first
+      scoresArray.sort((a, b) => b.score - a.score);
       const topScores = scoresArray.slice(0, 5);
 
       topScores.forEach(({ name, score }) => {

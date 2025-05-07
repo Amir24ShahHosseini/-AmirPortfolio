@@ -61,13 +61,14 @@
     <section class="balloon-game">
       <h2>🎈 Since you're here... wanna play a game?</h2>
       <p>Click the balloons to pop them and score points! ⏱️ You have 30 seconds.</p>
-
+      <p class="red-warning">⚠️ But be careful! Red balloons will cost you -1 point!</p>
+    
       <div id="balloon-container"></div>
-
+    
       <div class="score-board">
         🎯 Score: <span id="score">0</span>
       </div>
-
+    
       <div id="game-over" class="hidden">
         ⏰ Time’s up! Final Score: <span id="final-score">0</span>
         <br><br>
@@ -76,12 +77,13 @@
         <button onclick="saveScore()">Submit Score</button>
         <button onclick="restartGame()">🔄 Restart</button>
       </div>
-
+    
       <div id="scoreboard" class="hidden">
         <h3>🏆 Scoreboard</h3>
         <ul id="score-list"></ul>
       </div>
     </section>
+    
   </main>
 
   <footer>
